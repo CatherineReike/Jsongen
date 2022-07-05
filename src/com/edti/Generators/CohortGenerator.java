@@ -3,9 +3,14 @@ package com.edti.Generators;
 import com.edti.Interfaces.ICohortGenerator;
 import com.edti.Models.Cohort;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class CohortGenerator implements ICohortGenerator {
+
     private final String[][] karIntezet = {{"A", "G"}, {"A", "M"},
             {"B", "A"}, {"B", "S"}, {"B", "T"}, {"B", "V"},
             {"K", "A"}, {"K", "H"}, {"K", "E"}, {"K", "M"}, {"K", "V"},
@@ -27,8 +32,7 @@ public class CohortGenerator implements ICohortGenerator {
     }
 
     @Override
-    public void loadExternalParams(HashMap<String, String> params) {
-
+    public void setExternalParams(HashMap<String, String> params) {
     }
 
     @Override
@@ -38,7 +42,14 @@ public class CohortGenerator implements ICohortGenerator {
 
     @Override
     public String generateCourseCode() {
-        return null;
+        String chars = "ABCDEFGHIJKLMOPQRSTVWXYZ0123456789";
+        StringBuilder courseCode = new StringBuilder();
+        Random rnd = new Random();
+        while (courseCode.length() < 3) {
+            int index = (int) (rnd.nextFloat() * chars.length());
+            courseCode.append(chars.charAt(index));
+        }
+        return courseCode.toString();
     }
 
     @Override
