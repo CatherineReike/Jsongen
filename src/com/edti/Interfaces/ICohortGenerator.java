@@ -8,7 +8,7 @@ import java.util.HashMap;
 public interface ICohortGenerator {
     Collection<Cohort> generate();
 
-    void loadExternalParams(HashMap<String, String> params);
+    void setExternalParams(HashMap<String, String> params);
 
     //UNIQUE!!!
     String generateSubjectCode();
