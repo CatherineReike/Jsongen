@@ -25,6 +25,10 @@ public class CohortGenerator implements ICohortGenerator {
             "E", "O", "M", "I", "Z", "V", "W", "Z"};
     private final String[] kepzes = {"F", "B", "D", "O", "M", "S", "T", "E"};
     private final String[] munkarend = {"N", "L", "E", "T"};
+    private final String[] targynevek = {"Elektronika", "Pszihologia", "Építészet", "Automatika", "Villamos energetika",
+                "Felhő technológiák", "Szoftver fejlesztés", "Festészet", "Villamos gépek", "Statika", "Nemes Peti alapfokon",
+    "Nemes Peti haladóknak", "Varázslástan alapfokon", "Bájitaltan II.", "Sötét varázslatok kivédése", "Gyógynövénytan",
+            "Átváltoztatástan", "Mágiatörténet IV.", "Legendás állatok és megfigyelésük"};
 
 
 
@@ -76,7 +80,8 @@ public class CohortGenerator implements ICohortGenerator {
 
     @Override
     public String generateSubjectName() {
-        return null;
+        Random rnd = new Random();
+        return targynevek[rnd.nextInt(targynevek.length-1)];
     }
 
     @Override
