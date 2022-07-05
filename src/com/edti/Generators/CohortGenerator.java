@@ -2,10 +2,19 @@ package com.edti.Generators;
 
 import com.edti.Interfaces.ICohortGenerator;
 import com.edti.Models.Cohort;
+import com.edti.Shared.ParamLoader;
 
+import java.awt.List;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class CohortGenerator implements ICohortGenerator {
+
+    private String semester;
+    private int numberOfCourses;
     private final String[][] karIntezet = {{"A", "G"}, {"A", "M"},
             {"B", "A"}, {"B", "S"}, {"B", "T"}, {"B", "V"},
             {"K", "A"}, {"K", "H"}, {"K", "E"}, {"K", "M"}, {"K", "V"},
@@ -16,19 +25,35 @@ public class CohortGenerator implements ICohortGenerator {
             "E", "O", "M", "I", "Z", "V", "W", "Z"};
     private final String[] kepzes = {"F", "B", "D", "O", "M", "S", "T", "E"};
     private final String[] munkarend = {"N", "L", "E", "T"};
+    private final String[] targynevek = {"Elektronika", "Pszihologia", "Építészet", "Automatika", "Villamos energetika",
+                "Felhő technológiák", "Szoftver fejlesztés", "Festészet", "Villamos gépek", "Statika", "Nemes Peti alapfokon",
+    "Nemes Peti haladóknak", "Varázslástan alapfokon", "Bájitaltan II.", "Sötét varázslatok kivédése", "Gyógynövénytan",
+            "Átváltoztatástan", "Mágiatörténet IV.", "Legendás állatok és megfigyelésük"};
 
 
 
     @Override
     public Collection<Cohort> generate() {
+        setExternalParams(ParamLoader.getParams("data.txt"));
+        Set<Cohort> testSet = new HashSet<>();
+        int i = 0;
+        while (i != this.numberOfCourses) {
+            Cohort testCohort = new Cohort(generateSubjectCode(), generateSubjectName(), generateCourseCode(),
+                    getSemester(), new LinkedList<>(), new LinkedList<>());
+            if (!testSet.contains(testCohort)) {
+                testSet.add(testCohort);
+                i++;
+            }
+        }
 
 
-        return null;
+        return testSet;
     }
 
     @Override
-    public void loadExternalParams(HashMap<String, String> params) {
-
+    public void setExternalParams(HashMap<String, String> params) {
+        this.semester = params.get("semester");
+        this.numberOfCourses = Integer.parseInt(params.get("numberOfCourse"));
     }
 
     @Override
@@ -38,17 +63,25 @@ public class CohortGenerator implements ICohortGenerator {
 
     @Override
     public String generateCourseCode() {
-        return null;
+        String chars = "ABCDEFGHIJKLMOPQRSTVWXYZ0123456789";
+        StringBuilder courseCode = new StringBuilder();
+        Random rnd = new Random();
+        while (courseCode.length() < 3) {
+            int index = (int) (rnd.nextFloat() * chars.length());
+            courseCode.append(chars.charAt(index));
+        }
+        return courseCode.toString();
     }
 
     @Override
     public String getSemester() {
-        return null;
+        return this.semester;
     }
 
     @Override
     public String generateSubjectName() {
-        return null;
+        Random rnd = new Random();
+        return targynevek[rnd.nextInt(targynevek.length-1)];
     }
 
     @Override
