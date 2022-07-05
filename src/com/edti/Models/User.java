@@ -1,5 +1,6 @@
 package com.edti.Models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class User {
@@ -10,8 +11,8 @@ public class User {
     private String KeresztNev;
     private String TeljesNev;
     private String Email;
-    private Date UserLastChanged;
-    private Date EmailLastChanged;
+    private LocalDateTime UserLastChanged;
+    private LocalDateTime EmailLastChanged;
 
     public User(int userID, String neptunKod, String vezetekNev,
                 String keresztNev, String teljesNev, String email) {
@@ -21,6 +22,8 @@ public class User {
         KeresztNev = keresztNev;
         TeljesNev = teljesNev;
         Email = email;
+        UserLastChanged = LocalDateTime.now();
+        EmailLastChanged = LocalDateTime.now();
     }
 
     public int getUserID() {
@@ -71,19 +74,34 @@ public class User {
         Email = email;
     }
 
-    public Date getUserLastChanged() {
+    public LocalDateTime getUserLastChanged() {
         return UserLastChanged;
     }
 
-    public void setUserLastChanged(Date userLastChanged) {
+    public void setUserLastChanged(LocalDateTime userLastChanged) {
         UserLastChanged = userLastChanged;
     }
 
-    public Date getEmailLastChanged() {
+    public LocalDateTime getEmailLastChanged() {
         return EmailLastChanged;
     }
 
-    public void setEmailLastChanged(Date emailLastChanged) {
+    public void setEmailLastChanged(LocalDateTime emailLastChanged) {
         EmailLastChanged = emailLastChanged;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "UserID=" + UserID +
+                ", NeptunKod='" + NeptunKod + '\'' +
+                ", VezetekNev='" + VezetekNev + '\'' +
+                ", KeresztNev='" + KeresztNev + '\'' +
+                ", TeljesNev='" + TeljesNev + '\'' +
+                ", Email='" + Email + '\'' +
+                ", UserLastChanged=" + UserLastChanged +
+                ", EmailLastChanged=" + EmailLastChanged +
+                '}';
+    }
 }
+

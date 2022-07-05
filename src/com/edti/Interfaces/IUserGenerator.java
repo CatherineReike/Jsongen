@@ -13,5 +13,5 @@ public interface IUserGenerator {
 
     //UNIQUE!!!
     String generateNeptuneId();
-    String generateEmail();
+    String generateEmail(String s);
 }

@@ -2,14 +2,17 @@ package com.edti.Generators;
 
 
 import com.edti.Interfaces.IUserGenerator;
+import com.edti.Models.Cohort;
 import com.edti.Models.User;
+import com.edti.Shared.ParamLoader;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class UserGenerator implements IUserGenerator {
+    Random r = new Random();
 
     public static HashMap<Integer, String> Veznevs;
     static {
@@ -25,33 +28,46 @@ public class UserGenerator implements IUserGenerator {
 
     public static HashMap<Integer, String> Kernevs;
     static {
-        Veznevs = new HashMap<>();
-        Veznevs.put(0, "Imre");
-        Veznevs.put(1, "János");
-        Veznevs.put(2, "Mátyás");
-        Veznevs.put(3, "Dóra");
-        Veznevs.put(4, "Anna");
-        Veznevs.put(5, "Zorka");
-        Veznevs.put(6, "Béla");
+        Kernevs = new HashMap<>();
+        Kernevs.put(0, "Imre");
+        Kernevs.put(1, "János");
+        Kernevs.put(2, "Mátyás");
+        Kernevs.put(3, "Dóra");
+        Kernevs.put(4, "Anna");
+        Kernevs.put(5, "Zorka");
+        Kernevs.put(6, "Béla");
     }
 
-
+    private int numberOfUsers;
 
     @Override
     public Collection<User> generate() {
+        loadExternalParams(ParamLoader.getParams("data.txt"));
+        Set<User> creativeUserSet = new HashSet<>();
+        int i =0;
+        while(i != numberOfUsers)
+        {
+            String kN = generateKerNev();
+            String vN = generateVezNev();
+            String nyeptun = generateNeptuneId();
+            User currentUser = new User(r.nextInt(10000000), nyeptun, vN, kN, String.format("%s %s", vN, kN), generateEmail(nyeptun));
+            if (!creativeUserSet.contains(currentUser)) {
+                creativeUserSet.add(currentUser);
+                i++;
+            }
+        }
 
-        return null;
+        return creativeUserSet;
     }
 
     @Override
     public void loadExternalParams(HashMap<String, String> params) {
-
+        this.numberOfUsers = Integer.parseInt(params.get("numberOfCourse"));
     }
-    Random r = new Random();
+
 
     @Override
     public String generateNeptuneId() {
-        HashSet<String> neptuns = new HashSet<>();
 
         String betuk = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -67,16 +83,13 @@ public class UserGenerator implements IUserGenerator {
                     neptun += r.nextInt(10);
                 }
             }
-            neptuns.add(neptun);
-        
+
         return neptun;
     }
 
     @Override
-    public String generateEmail() {
-        String Email = "";
-
-        return Email;
+    public String generateEmail(String nyeptun) {
+        return String.format("%s@mail.com", nyeptun);
     }
 
     public String generateVezNev(){
@@ -90,11 +103,11 @@ public class UserGenerator implements IUserGenerator {
         Random r = new Random();
         Nev = Kernevs.get(r.nextInt(Kernevs.size()));
 
-
         System.out.println(Nev.hashCode());
         return Nev;
 
 
     }
+
 
 }
