@@ -6,6 +6,7 @@ import com.edti.Models.User;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 public class UserGenerator implements IUserGenerator {
@@ -46,10 +47,29 @@ public class UserGenerator implements IUserGenerator {
     public void loadExternalParams(HashMap<String, String> params) {
 
     }
+    Random r = new Random();
 
     @Override
     public String generateNeptuneId() {
-        return null;
+        HashSet<String> neptuns = new HashSet<>();
+
+        String betuk = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            String neptun ="";
+            for (int i = 0; i < 6; i++)
+            {
+                if (r.nextInt(101)<70)
+                {
+                    neptun += betuk.charAt(r.nextInt(betuk.length()));
+                }
+                else
+                {
+                    neptun += r.nextInt(10);
+                }
+            }
+            neptuns.add(neptun);
+        
+        return neptun;
     }
 
     @Override
@@ -59,11 +79,22 @@ public class UserGenerator implements IUserGenerator {
         return Email;
     }
 
-    public String generateNev(HashMap<Integer, String> params){
+    public String generateVezNev(){
         String Nev ="";
         Random r = new Random();
-        Nev = params.get(r.nextInt(7));
+        Nev = Veznevs.get(r.nextInt(Veznevs.size()));
         return Nev;
+    }
+    public String generateKerNev(){
+        String Nev ="";
+        Random r = new Random();
+        Nev = Kernevs.get(r.nextInt(Kernevs.size()));
+
+
+        System.out.println(Nev.hashCode());
+        return Nev;
+
+
     }
 
 }
