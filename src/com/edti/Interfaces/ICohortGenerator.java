@@ -5,7 +5,7 @@ import com.edti.Models.Cohort;
 import java.util.Collection;
 import java.util.HashMap;
 
-public interface CohortGenerator {
+public interface ICohortGenerator {
     Collection<Cohort> generate();
 
     void loadExternalParams(HashMap<String, String> params);
