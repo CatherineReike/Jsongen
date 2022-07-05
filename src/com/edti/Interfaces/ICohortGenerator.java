@@ -13,8 +13,14 @@ public interface ICohortGenerator {
     //UNIQUE!!!
     String generateSubjectCode();
     String generateCourseCode();
-    String generateSemester();
+    String getSemester();
     String generateSubjectName();
 
     Collection<String> collectUserIds();
+
+    String getFirstTwo();
+    String getThird();
+    String getFree();
+    String getEight();
+    String getNinth();
 }
