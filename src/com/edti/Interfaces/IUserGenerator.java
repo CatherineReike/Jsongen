@@ -5,7 +5,7 @@ import com.edti.Models.User;
 import java.util.Collection;
 import java.util.HashMap;
 
-public interface UserGenerator {
+public interface IUserGenerator {
 
     Collection<User> generate();
 
