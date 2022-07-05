@@ -11,9 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
         ICohortGenerator test = new CohortGenerator();
-
-        Map<String, String> map;
-        map = ParamLoader.getParams("data.txt");
-        System.out.println(map.values());
+        test.generate().forEach((c) -> System.out.println(c.toString()));
     }
 }

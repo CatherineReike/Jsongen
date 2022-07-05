@@ -9,8 +9,8 @@ import java.util.stream.Stream;
 
 public class ParamLoader<K,V> {
 
-    public static Map<String, String> getParams(String filePath) {
-        Map<String, String> map = new HashMap<>();
+    public static HashMap<String, String> getParams(String filePath) {
+        HashMap<String, String> map = new HashMap<>();
         try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
             lines.filter(line -> line.contains(":"))
                     .forEach(line -> {

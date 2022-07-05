@@ -2,7 +2,9 @@ package com.edti.Generators;
 
 import com.edti.Interfaces.ICohortGenerator;
 import com.edti.Models.Cohort;
+import com.edti.Shared.ParamLoader;
 
+import java.awt.List;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -11,6 +13,8 @@ import java.util.stream.Stream;
 
 public class CohortGenerator implements ICohortGenerator {
 
+    private String semester;
+    private int numberOfCourses;
     private final String[][] karIntezet = {{"A", "G"}, {"A", "M"},
             {"B", "A"}, {"B", "S"}, {"B", "T"}, {"B", "V"},
             {"K", "A"}, {"K", "H"}, {"K", "E"}, {"K", "M"}, {"K", "V"},
@@ -26,13 +30,26 @@ public class CohortGenerator implements ICohortGenerator {
 
     @Override
     public Collection<Cohort> generate() {
+        setExternalParams(ParamLoader.getParams("data.txt"));
+        Set<Cohort> testSet = new HashSet<>();
+        int i = 0;
+        while (i != this.numberOfCourses) {
+            Cohort testCohort = new Cohort(generateSubjectCode(), generateSubjectName(), generateCourseCode(),
+                    getSemester(), new LinkedList<>(), new LinkedList<>());
+            if (!testSet.contains(testCohort)) {
+                testSet.add(testCohort);
+                i++;
+            }
+        }
 
 
-        return null;
+        return testSet;
     }
 
     @Override
     public void setExternalParams(HashMap<String, String> params) {
+        this.semester = params.get("semester");
+        this.numberOfCourses = Integer.parseInt(params.get("numberOfCourse"));
     }
 
     @Override
@@ -54,7 +71,7 @@ public class CohortGenerator implements ICohortGenerator {
 
     @Override
     public String getSemester() {
-        return null;
+        return this.semester;
     }
 
     @Override
