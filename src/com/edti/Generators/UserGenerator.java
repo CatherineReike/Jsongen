@@ -2,13 +2,10 @@ package com.edti.Generators;
 
 
 import com.edti.Interfaces.IUserGenerator;
-import com.edti.Models.Cohort;
+
 import com.edti.Models.User;
 import com.edti.Shared.ParamLoader;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class UserGenerator implements IUserGenerator {
@@ -38,14 +35,37 @@ public class UserGenerator implements IUserGenerator {
         Kernevs.put(6, "Béla");
     }
 
-    private int numberOfUsers;
+    private int numberOfStudents;
+    private int numberOfTeachers;
+
 
     @Override
-    public Collection<User> generate() {
+    public Collection<User> generateStudents() {
         loadExternalParams(ParamLoader.getParams("data.txt"));
         Set<User> creativeUserSet = new HashSet<>();
         int i =0;
-        while(i != numberOfUsers)
+        while(i != numberOfStudents)
+        {
+            String kN = generateKerNev();
+            String vN = generateVezNev();
+            String nyeptun = generateNeptuneId();
+            User currentUser = new User(r.nextInt(10000000), nyeptun, vN, kN, String.format("%s %s", vN, kN), generateEmail(nyeptun));
+            System.out.println(currentUser.getUserLastChanged());
+            if (!creativeUserSet.contains(currentUser)) {
+                creativeUserSet.add(currentUser);
+                i++;
+            }
+        }
+
+        return creativeUserSet;
+    }
+
+    @Override
+    public Collection<User> generateTeachers() {
+        loadExternalParams(ParamLoader.getParams("data.txt"));
+        Set<User> creativeUserSet = new HashSet<>();
+        int i =0;
+        while(i != numberOfTeachers)
         {
             String kN = generateKerNev();
             String vN = generateVezNev();
@@ -63,7 +83,8 @@ public class UserGenerator implements IUserGenerator {
 
     @Override
     public void loadExternalParams(HashMap<String, String> params) {
-        this.numberOfUsers = Integer.parseInt(params.get("numberOfCourse"));
+        this.numberOfStudents = Integer.parseInt(params.get("numberOfStudents"));
+        this.numberOfTeachers = Integer.parseInt(params.get("numberOfTeachers"));
     }
 
 
@@ -104,7 +125,6 @@ public class UserGenerator implements IUserGenerator {
         Random r = new Random();
         Nev = Kernevs.get(r.nextInt(Kernevs.size()));
 
-        System.out.println(Nev.hashCode());
         return Nev;
 
 

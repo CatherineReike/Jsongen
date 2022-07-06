@@ -7,7 +7,8 @@ import java.util.HashMap;
 
 public interface IUserGenerator {
 
-    Collection<User> generate();
+    Collection<User> generateStudents();
+    Collection<User> generateTeachers();
 
     void loadExternalParams(HashMap<String, String> params);
 
