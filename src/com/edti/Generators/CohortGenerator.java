@@ -1,15 +1,20 @@
 package com.edti.Generators;
 
 import com.edti.Interfaces.ICohortGenerator;
+import com.edti.Interfaces.IGlobalSerialize;
 import com.edti.Models.Cohort;
+import com.edti.Models.OEKurzusokFelhasznalokkalKurzusHallgatokAdat;
+import com.edti.Models.OEKurzusokFelhasznalokkalKurzusOktatokAdat;
+import com.edti.Models.User;
+import com.edti.Shared.GlobalSerialize;
 import com.edti.Shared.ParamLoader;
+import com.edti.Wrappers.NeptunCourseWrapper;
+import com.edti.Wrappers.NeptunStudentWrapper;
 
-import java.awt.List;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Stream;
+
 
 public class CohortGenerator implements ICohortGenerator {
 
@@ -30,24 +35,60 @@ public class CohortGenerator implements ICohortGenerator {
     "Nemes Peti haladóknak", "Varázslástan alapfokon", "Bájitaltan II.", "Sötét varázslatok kivédése", "Gyógynövénytan",
             "Átváltoztatástan", "Mágiatörténet IV.", "Legendás állatok és megfigyelésük"};
 
+    private List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> students = new ArrayList<>();
+    private List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> teachers = new ArrayList<>();
 
+    NeptunCourseWrapper neptunCourseWrapper = new NeptunCourseWrapper();
+
+
+
+    public void writeToFile(HashMap<String, ArrayList<User>> users) throws IOException {
+        generate(users);
+        IGlobalSerialize<NeptunCourseWrapper> serializer = new GlobalSerialize<>();
+
+        serializer.serialize(neptunCourseWrapper, "OE_Get_KurzusokFelhasznalokkalAdatok");
+    }
 
     @Override
-    public Collection<Cohort> generate() {
+    public Collection<Cohort> generate(HashMap<String, ArrayList<User>> users) {
+        collectUserIds(users);
         setExternalParams(ParamLoader.getParams("data.txt"));
-        Set<Cohort> testSet = new HashSet<>();
+        Set<Cohort> cohortSet = new HashSet<>();
         int i = 0;
+        Random rnd = new Random();
         while (i != this.numberOfCourses) {
+            ArrayList<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> studentsToAdd = new ArrayList<>();
+            ArrayList<OEKurzusokFelhasznalokkalKurzusOktatokAdat> teachersToAdd = new ArrayList<>();
+            int numberOfStudents = rnd.nextInt(15);
+            int numberOfTeachers = rnd.nextInt(3);
+
+            int j = 0;
+            while (j < numberOfStudents) {
+                studentsToAdd.add(students.get(rnd.nextInt(students.size())));
+                j++;
+            }
+
+            j = 0;
+            while (j < numberOfTeachers) {
+                teachersToAdd.add(teachers.get(rnd.nextInt(teachers.size())));
+                j++;
+            }
+
             Cohort testCohort = new Cohort(generateSubjectCode(), generateSubjectName(), generateCourseCode(),
-                    getSemester(), new LinkedList<>(), new LinkedList<>());
-            if (!testSet.contains(testCohort)) {
-                testSet.add(testCohort);
+                    getSemester(), new ArrayList<>(studentsToAdd), new ArrayList<>(teachersToAdd));
+            if (!cohortSet.contains(testCohort)) {
+                cohortSet.add(testCohort);
                 i++;
             }
         }
+        neptunCourseWrapper.getOE_KurzusokFelhasznalokkalAdat().addAll(cohortSet);
+        return cohortSet;
+    }
 
-
-        return testSet;
+    @Override
+    public void collectUserIds(HashMap<String, ArrayList<User>> users) {
+        users.get("student").forEach((s) -> students.add(new OEKurzusokFelhasznalokkalKurzusHallgatokAdat(s.getNeptunKod())));
+        users.get("teacher").forEach((t) -> teachers.add(new OEKurzusokFelhasznalokkalKurzusOktatokAdat(t.getNeptunKod())));
     }
 
     @Override
@@ -84,10 +125,7 @@ public class CohortGenerator implements ICohortGenerator {
         return targynevek[rnd.nextInt(targynevek.length-1)];
     }
 
-    @Override
-    public Collection<String> collectUserIds() {
-        return null;
-    }
+
 
     @Override
     public String getFirstTwo() {

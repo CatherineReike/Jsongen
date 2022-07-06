@@ -1,20 +1,23 @@
 package com.edti;
 
+import com.edti.Generators.CohortGenerator;
 import com.edti.Generators.UserGenerator;
+import com.edti.Interfaces.ICohortGenerator;
 import com.edti.Interfaces.IUserGenerator;
+import com.edti.Models.User;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        IUserGenerator test = new UserGenerator();
-        //List<User> users = new ArrayList<>(test.generateUsers());
-        //NeptunStudentWrapper wrapper = new NeptunStudentWrapper();
-        //wrapper.setOE_AktivJogviszonyosHallgatokAdat(users);
+        IUserGenerator userGenerator = new UserGenerator();
+        ICohortGenerator cohortGenerator = new CohortGenerator();
 
+        HashMap<String, ArrayList<User>> users = new HashMap<>(userGenerator.GODgenerate());
 
-        //ez itten a User Generatorban történjen meg
-        test.GODgenerate();
+        cohortGenerator.writeToFile(users);
     }
 }

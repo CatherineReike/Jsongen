@@ -18,4 +18,6 @@
 *.iml
 .DS_Store
 
+/out/
+
 /logs/
