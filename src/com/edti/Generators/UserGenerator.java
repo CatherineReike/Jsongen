@@ -93,7 +93,11 @@ public class UserGenerator implements IUserGenerator {
 
     @Override
     public String generateEmail(String nyeptun) {
-        return String.format("%s@mail.com", nyeptun);
+        if(r.nextInt(1000)<50){
+            return null;
+        }
+        else
+            return String.format("%s@mail.com", nyeptun);
     }
 
     public String generateVezNev(){
