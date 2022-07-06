@@ -111,7 +111,7 @@ public class UserGenerator implements IUserGenerator {
         }
 
             Random r = new Random();
-            Nev = Veznevs.get(r.nextInt(Veznevs.size()));
+            Nev += Veznevs.get(r.nextInt(Veznevs.size()));
             return Nev;
 
     }
