@@ -44,6 +44,8 @@ public class UserGenerator implements IUserGenerator {
     }
 
     private int numberOfStudents;
+    private int doctorpercent;
+    private int emailpercent;
 
     @Override
     public Collection<User> generateUsers() {
@@ -67,6 +69,8 @@ public class UserGenerator implements IUserGenerator {
     @Override
     public void loadExternalParams(HashMap<String, String> params) {
         this.numberOfStudents = Integer.parseInt(params.get("numberOfStudents"));
+        this.doctorpercent = Integer.parseInt(params.get("doctorpercent"));
+        this.emailpercent = Integer.parseInt(params.get("emailpercent"));
     }
 
 
@@ -93,7 +97,7 @@ public class UserGenerator implements IUserGenerator {
 
     @Override
     public String generateEmail(String nyeptun) {
-        if(r.nextInt(1000)<50){
+        if(r.nextInt(101)<emailpercent){
             return null;
         }
         else
@@ -102,9 +106,14 @@ public class UserGenerator implements IUserGenerator {
 
     public String generateVezNev(){
         String Nev ="";
-        Random r = new Random();
-        Nev = Veznevs.get(r.nextInt(Veznevs.size()));
-        return Nev;
+        if (r.nextInt(101)<doctorpercent){
+            Nev += "dr.";
+        }
+
+            Random r = new Random();
+            Nev = Veznevs.get(r.nextInt(Veznevs.size()));
+            return Nev;
+
     }
     public String generateKerNev(){
         String Nev ="";
