@@ -12,11 +12,16 @@ import java.time.LocalDateTime;
 
 public class GlobalSerialize<T> implements IGlobalSerialize<T> {
     private Gson gson = new Gson();
+    private Path PATH;
 
-    private final Path PATH = Paths.get("Files/teszt.json");
+    private void getPath(String name){
+        PATH = Paths.get(String.format("Files/%s.json", name));
+    }
+
 
     @Override
-    public void serialize(T object) throws IOException {
+    public void serialize(T object, String pathName) throws IOException {
+        getPath(pathName);
         setGsonObject();
         String objectString = gson.toJson(object);
 
@@ -31,4 +36,5 @@ public class GlobalSerialize<T> implements IGlobalSerialize<T> {
         builder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
         gson = builder.create();
     }
+
 }
