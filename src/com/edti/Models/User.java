@@ -11,6 +11,7 @@ public class User {
     private String KeresztNev;
     private String TeljesNev;
     private String Email;
+    private Float vmi;
     private LocalDateTime UserLastChanged;
     private LocalDateTime EmailLastChanged;
 
@@ -24,6 +25,15 @@ public class User {
         Email = email;
         UserLastChanged = LocalDateTime.now();
         EmailLastChanged = LocalDateTime.now();
+        vmi = 0.5F;
+    }
+
+    public Float getVmi() {
+        return vmi;
+    }
+
+    public void setVmi(Float vmi) {
+        this.vmi = vmi;
     }
 
     public int getUserID() {

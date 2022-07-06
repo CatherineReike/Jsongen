@@ -51,6 +51,7 @@ public class UserGenerator implements IUserGenerator {
             String vN = generateVezNev();
             String nyeptun = generateNeptuneId();
             User currentUser = new User(r.nextInt(10000000), nyeptun, vN, kN, String.format("%s %s", vN, kN), generateEmail(nyeptun));
+            System.out.println(currentUser.getUserLastChanged());
             if (!creativeUserSet.contains(currentUser)) {
                 creativeUserSet.add(currentUser);
                 i++;
