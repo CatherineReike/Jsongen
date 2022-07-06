@@ -1,14 +1,24 @@
 package com.edti.Models;
 
+import com.google.gson.annotations.SerializedName;
+
+import javax.annotation.processing.Generated;
 import java.util.List;
 
+@Generated("net.hexar.json2pojo")
 public class Cohort {
+    @SerializedName("TargyKod")
     private String targyKod;
+    @SerializedName("TargyNev")
     private String targyNev;
+    @SerializedName("KurzusKod")
     private String kurzusKod;
+    @SerializedName("Felev")
     private String felev;
 
+    @SerializedName("OE_KurzusokFelhasznalokkalKurzusHallgatokAdat")
     private List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> oEKurzusokFelhasznalokkalKurzusHallgatokAdat;
+    @SerializedName("OE_KurzusokFelhasznalokkalKurzusOktatokAdat")
     private List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> oEKurzusokFelhasznalokkalKurzusOktatokAdat;
 
     public Cohort(String targyKod, String targyNev, String kurzusKod, String felev,

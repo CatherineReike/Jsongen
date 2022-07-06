@@ -1,4 +1,4 @@
 semester:2022/23/1
-numberOfCourse:1000
-numberOfStudents:5000
-numberOfTeachers:100
+numberOfCourse:20
+numberOfStudents:50
+numberOfTeachers:20

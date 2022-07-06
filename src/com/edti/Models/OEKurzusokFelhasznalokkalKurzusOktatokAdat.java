@@ -1,6 +1,12 @@
 package com.edti.Models;
 
+import com.google.gson.annotations.SerializedName;
+
+import javax.annotation.processing.Generated;
+
+@Generated("net.hexar.json2pojo")
 public class OEKurzusokFelhasznalokkalKurzusOktatokAdat {
+    @SerializedName("NeptunKod")
     private String neptunKod;
 
     public OEKurzusokFelhasznalokkalKurzusOktatokAdat(String neptunKod) {
