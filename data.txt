@@ -1,3 +1,4 @@
 semester:2022/23/1
 numberOfCourse:10
-numberOfUsers:10
+NumberOfStudents:89
+NumberOfTeachers:20
