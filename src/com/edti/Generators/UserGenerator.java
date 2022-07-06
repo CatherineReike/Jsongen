@@ -2,13 +2,10 @@ package com.edti.Generators;
 
 
 import com.edti.Interfaces.IUserGenerator;
-import com.edti.Models.Cohort;
+
 import com.edti.Models.User;
 import com.edti.Shared.ParamLoader;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class UserGenerator implements IUserGenerator {
@@ -104,7 +101,6 @@ public class UserGenerator implements IUserGenerator {
         Random r = new Random();
         Nev = Kernevs.get(r.nextInt(Kernevs.size()));
 
-        System.out.println(Nev.hashCode());
         return Nev;
 
 
