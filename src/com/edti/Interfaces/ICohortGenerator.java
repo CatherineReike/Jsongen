@@ -1,12 +1,15 @@
 package com.edti.Interfaces;
 
 import com.edti.Models.Cohort;
+import com.edti.Models.User;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public interface ICohortGenerator {
-    Collection<Cohort> generate();
+    Collection<Cohort> generate(HashMap<String, ArrayList<User>> users);
 
     void setExternalParams(HashMap<String, String> params);
 
@@ -16,7 +19,7 @@ public interface ICohortGenerator {
     String getSemester();
     String generateSubjectName();
 
-    Collection<String> collectUserIds();
+    void collectUserIds(HashMap<String, ArrayList<User>> users);
 
     String getFirstTwo();
     String getThird();

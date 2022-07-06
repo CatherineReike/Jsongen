@@ -2,14 +2,15 @@ package com.edti.Generators;
 
 import com.edti.Interfaces.ICohortGenerator;
 import com.edti.Models.Cohort;
+import com.edti.Models.OEKurzusokFelhasznalokkalKurzusHallgatokAdat;
+import com.edti.Models.OEKurzusokFelhasznalokkalKurzusOktatokAdat;
+import com.edti.Models.User;
 import com.edti.Shared.ParamLoader;
 
-import java.awt.List;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
+
 import java.util.*;
-import java.util.stream.Stream;
+
 
 public class CohortGenerator implements ICohortGenerator {
 
@@ -30,16 +31,20 @@ public class CohortGenerator implements ICohortGenerator {
     "Nemes Peti haladóknak", "Varázslástan alapfokon", "Bájitaltan II.", "Sötét varázslatok kivédése", "Gyógynövénytan",
             "Átváltoztatástan", "Mágiatörténet IV.", "Legendás állatok és megfigyelésük"};
 
+    private List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> students = new ArrayList<>();
+    private List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> teachers = new ArrayList<>();
+
 
 
     @Override
-    public Collection<Cohort> generate() {
+    public Collection<Cohort> generate(HashMap<String, ArrayList<User>> users) {
+        collectUserIds(users);
         setExternalParams(ParamLoader.getParams("data.txt"));
         Set<Cohort> testSet = new HashSet<>();
         int i = 0;
         while (i != this.numberOfCourses) {
             Cohort testCohort = new Cohort(generateSubjectCode(), generateSubjectName(), generateCourseCode(),
-                    getSemester(), new LinkedList<>(), new LinkedList<>());
+                    getSemester(), new ArrayList<>(students), new ArrayList<>(teachers));
             if (!testSet.contains(testCohort)) {
                 testSet.add(testCohort);
                 i++;
@@ -48,6 +53,12 @@ public class CohortGenerator implements ICohortGenerator {
 
 
         return testSet;
+    }
+
+    @Override
+    public void collectUserIds(HashMap<String, ArrayList<User>> users) {
+        users.get("student").forEach((s) -> students.add(new OEKurzusokFelhasznalokkalKurzusHallgatokAdat(s.getNeptunKod())));
+        users.get("teacher").forEach((t) -> teachers.add(new OEKurzusokFelhasznalokkalKurzusOktatokAdat(t.getNeptunKod())));
     }
 
     @Override
@@ -84,10 +95,7 @@ public class CohortGenerator implements ICohortGenerator {
         return targynevek[rnd.nextInt(targynevek.length-1)];
     }
 
-    @Override
-    public Collection<String> collectUserIds() {
-        return null;
-    }
+
 
     @Override
     public String getFirstTwo() {
