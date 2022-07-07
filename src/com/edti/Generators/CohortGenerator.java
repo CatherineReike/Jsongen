@@ -63,15 +63,22 @@ public class CohortGenerator implements ICohortGenerator {
             int numberOfTeachers = rnd.nextInt(3);
 
             int j = 0;
+            int index;
             while (j < numberOfStudents) {
-                studentsToAdd.add(students.get(rnd.nextInt(students.size())));
-                j++;
+                index = rnd.nextInt(students.size());
+                if (!studentsToAdd.contains(students.get(index))) {
+                    studentsToAdd.add(students.get(index));
+                    j++;
+                }
             }
 
             j = 0;
             while (j < numberOfTeachers) {
-                teachersToAdd.add(teachers.get(rnd.nextInt(teachers.size())));
-                j++;
+                index = rnd.nextInt(teachers.size());
+                if (!teachersToAdd.contains(teachers.get(index))) {
+                    teachersToAdd.add(teachers.get(index));
+                    j++;
+                }
             }
 
             Cohort testCohort = new Cohort(generateSubjectCode(), generateSubjectName(), generateCourseCode(),
