@@ -15,7 +15,7 @@ import java.util.*;
 
 public class UserGenerator implements IUserGenerator {
 
-    Random r = new Random();
+
     NeptunStudentWrapper neptunStudentWrapper = new NeptunStudentWrapper();
     NeptunTeacherWrapper neptunTeacherWrapper = new NeptunTeacherWrapper();
 
@@ -57,7 +57,7 @@ public class UserGenerator implements IUserGenerator {
             String kN = generateKerNev();
             String vN = generateVezNev();
             String nyeptun = generateNeptuneId();
-            User currentUser = new User(r.nextInt(10000000), nyeptun, vN, kN, String.format("%s %s", vN, kN), generateEmail(nyeptun));
+            User currentUser = new User(new Random().nextInt(10000000), nyeptun, vN, kN, String.format("%s %s", vN, kN), generateEmail(nyeptun));
             if (!creativeUserSet.contains(currentUser)) {
                 creativeUserSet.add(currentUser);
                 i++;
@@ -82,13 +82,13 @@ public class UserGenerator implements IUserGenerator {
             String neptun ="";
             for (int i = 0; i < 6; i++)
             {
-                if (r.nextInt(101)<70)
+                if (new Random().nextInt(101)<70)
                 {
-                    neptun += betuk.charAt(r.nextInt(betuk.length()));
+                    neptun += betuk.charAt(new Random().nextInt(betuk.length()));
                 }
                 else
                 {
-                    neptun += r.nextInt(10);
+                    neptun += new Random().nextInt(10);
                 }
             }
 
@@ -97,7 +97,7 @@ public class UserGenerator implements IUserGenerator {
 
     @Override
     public String generateEmail(String nyeptun) {
-        if(r.nextInt(101)<emailpercent){
+        if(new Random().nextInt(101)<emailpercent){
             return "";
         }
         else
@@ -106,7 +106,7 @@ public class UserGenerator implements IUserGenerator {
 
     public String generateVezNev(){
         String Nev ="";
-        if (r.nextInt(101)<doctorpercent){
+        if (new Random().nextInt(101)<doctorpercent){
             Nev += "dr.";
         }
 

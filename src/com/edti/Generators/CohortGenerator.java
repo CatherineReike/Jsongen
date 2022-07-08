@@ -35,8 +35,8 @@ public class CohortGenerator implements ICohortGenerator {
     "Nemes Peti haladóknak", "Varázslástan alapfokon", "Bájitaltan II.", "Sötét varázslatok kivédése", "Gyógynövénytan",
             "Átváltoztatástan", "Mágiatörténet IV.", "Legendás állatok és megfigyelésük"};
 
-    private List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> students = new ArrayList<>();
-    private List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> teachers = new ArrayList<>();
+    private final List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> students = new ArrayList<>();
+    private final List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> teachers = new ArrayList<>();
 
     NeptunCourseWrapper neptunCourseWrapper = new NeptunCourseWrapper();
 
@@ -57,8 +57,8 @@ public class CohortGenerator implements ICohortGenerator {
         int i = 0;
         Random rnd = new Random();
         while (i != this.numberOfCourses) {
-            ArrayList<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> studentsToAdd = new ArrayList<>();
-            ArrayList<OEKurzusokFelhasznalokkalKurzusOktatokAdat> teachersToAdd = new ArrayList<>();
+            List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> studentsToAdd = new ArrayList<>();
+            List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> teachersToAdd = new ArrayList<>();
             int numberOfStudents = rnd.nextInt(15);
             int numberOfTeachers = rnd.nextInt(3);
 

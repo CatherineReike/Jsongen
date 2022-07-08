@@ -27,4 +27,22 @@ public class OEKurzusokFelhasznalokkalKurzusHallgatokAdat {
                 "neptunKod='" + neptunKod + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof OEKurzusokFelhasznalokkalKurzusHallgatokAdat)) {
+            return false;
+        }
+
+        OEKurzusokFelhasznalokkalKurzusHallgatokAdat other = (OEKurzusokFelhasznalokkalKurzusHallgatokAdat) obj;
+        if (other == this) {
+            return true;
+        }
+
+        if (this.neptunKod.equals(other.getNeptunKod())) {
+            return true;
+        }
+
+        return false;
+    }
 }

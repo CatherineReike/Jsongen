@@ -1,6 +1,6 @@
 semester:2022/23/1
 numberOfCourse:20
-numberOfStudents:50
-numberOfTeachers:20
+numberOfStudents:30
+numberOfTeachers:10
 doctorpercent:5
 emailpercent:5
