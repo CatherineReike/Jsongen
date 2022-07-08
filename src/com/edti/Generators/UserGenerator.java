@@ -98,7 +98,7 @@ public class UserGenerator implements IUserGenerator {
     @Override
     public String generateEmail(String nyeptun) {
         if(r.nextInt(101)<emailpercent){
-            return null;
+            return "";
         }
         else
             return String.format("%s@mail.com", nyeptun);
