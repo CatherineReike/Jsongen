@@ -44,15 +44,17 @@ public class UserGenerator implements IUserGenerator {
     }
 
     private int numberOfStudents;
+    private int numberOfTeachers;
     private int doctorpercent;
     private int emailpercent;
+    private int bothpercent;
 
     @Override
     public Collection<User> generateUsers() {
         loadExternalParams(ParamLoader.getParams("data.txt"));
         Set<User> creativeUserSet = new HashSet<>();
         int i =0;
-        while(i != numberOfStudents)
+        while(i != numberOfStudents + numberOfTeachers)
         {
             String kN = generateKerNev();
             String vN = generateVezNev();
@@ -69,8 +71,10 @@ public class UserGenerator implements IUserGenerator {
     @Override
     public void loadExternalParams(HashMap<String, String> params) {
         this.numberOfStudents = Integer.parseInt(params.get("numberOfStudents"));
+        this.numberOfTeachers = Integer.parseInt(params.get("numberOfTeachers"));
         this.doctorpercent = Integer.parseInt(params.get("doctorpercent"));
         this.emailpercent = Integer.parseInt(params.get("emailpercent"));
+        this.bothpercent = Integer.parseInt(params.get("bothpercent"));
     }
 
 
@@ -131,22 +135,25 @@ public class UserGenerator implements IUserGenerator {
         IGlobalSerialize<NeptunStudentWrapper> serializerS = new GlobalSerialize<>();
         IGlobalSerialize<NeptunTeacherWrapper> serializerT = new GlobalSerialize<>();
 
-        int i =1;
-        //add to wrappers
+        int i = 0;
         for (User user: users){
-            if (i % 3 == 0){
-                if (i % 4 ==0){
+            {
+                if (i < numberOfTeachers) {
+                    Random r = new Random();
+                    int percent = r.nextInt(100);
+                    if (percent <= bothpercent) {
+                        neptunStudentWrapper.getOE_AktivJogviszonyosHallgatokAdat().add(user);
+                        students.add(user);
+                        i--;
+                    }
+                    neptunTeacherWrapper.getOE_AlkalmazottakAdat().add(user);
+                    teachers.add(user);
+                    i++;
+                } else {
                     neptunStudentWrapper.getOE_AktivJogviszonyosHallgatokAdat().add(user);
                     students.add(user);
-
                 }
-                neptunTeacherWrapper.getOE_AlkalmazottakAdat().add(user);
-                teachers.add(user);
             }
-            else
-                neptunStudentWrapper.getOE_AktivJogviszonyosHallgatokAdat().add(user);
-            students.add(user);
-            i++;
         }
 
         vinceEmberkei.put("student", students);
