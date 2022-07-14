@@ -16,14 +16,14 @@ public class Cohort {
     @SerializedName("Felev")
     private String felev;
 
-    @SerializedName("OE_KurzusokFelhasznalokkalKurzusHallgatokAdat")
-    private List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> oEKurzusokFelhasznalokkalKurzusHallgatokAdat;
     @SerializedName("OE_KurzusokFelhasznalokkalKurzusOktatokAdat")
     private List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> oEKurzusokFelhasznalokkalKurzusOktatokAdat;
+    @SerializedName("OE_KurzusokFelhasznalokkalKurzusHallgatokAdat")
+    private List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> oEKurzusokFelhasznalokkalKurzusHallgatokAdat;
 
     public Cohort(String targyKod, String targyNev, String kurzusKod, String felev,
-                  List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> oEKurzusokFelhasznalokkalKurzusHallgatokAdat,
-                  List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> oEKurzusokFelhasznalokkalKurzusOktatokAdat) {
+                  List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> oEKurzusokFelhasznalokkalKurzusOktatokAdat,
+                  List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> oEKurzusokFelhasznalokkalKurzusHallgatokAdat) {
         this.targyKod = targyKod;
         this.targyNev = targyNev;
         this.kurzusKod = kurzusKod;

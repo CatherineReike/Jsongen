@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class User {
 
-    private int UserID;
+    private String UserID;
     private String NeptunKod;
     private String VezetekNev;
     private String KeresztNev;
@@ -14,7 +14,7 @@ public class User {
     private LocalDateTime UserLastChanged;
     private LocalDateTime EmailLastChanged;
 
-    public User(int userID, String neptunKod, String vezetekNev,
+    public User(String userID, String neptunKod, String vezetekNev,
                 String keresztNev, String teljesNev, String email) {
         UserID = userID;
         NeptunKod = neptunKod;
@@ -26,11 +26,11 @@ public class User {
         EmailLastChanged = LocalDateTime.now();
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return UserID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         UserID = userID;
     }
 

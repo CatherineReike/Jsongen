@@ -57,8 +57,9 @@ public class CohortGenerator implements ICohortGenerator {
         int i = 0;
         Random rnd = new Random();
         while (i != this.numberOfCourses) {
-            List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> studentsToAdd = new ArrayList<>();
             List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> teachersToAdd = new ArrayList<>();
+            List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> studentsToAdd = new ArrayList<>();
+
             int numberOfStudents = rnd.nextInt(15);
             int numberOfTeachers = rnd.nextInt(3);
 
@@ -82,7 +83,7 @@ public class CohortGenerator implements ICohortGenerator {
             }
 
             Cohort testCohort = new Cohort(generateSubjectCode(), generateSubjectName(), generateCourseCode(),
-                    getSemester(), new ArrayList<>(studentsToAdd), new ArrayList<>(teachersToAdd));
+                    getSemester(), new ArrayList<>(teachersToAdd), new ArrayList<>(studentsToAdd));
             if (!cohortSet.contains(testCohort)) {
                 cohortSet.add(testCohort);
                 i++;
