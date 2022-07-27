@@ -2,6 +2,7 @@ package com.edti.Models;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 
 public class User {
 
@@ -88,6 +89,21 @@ public class User {
 
     public void setEmailLastChanged(LocalDateTime emailLastChanged) {
         EmailLastChanged = emailLastChanged;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof User c)) {
+            return false;
+        }
+
+
+        return Objects.equals(c.UserID, this.UserID);
+
     }
 
     @Override
