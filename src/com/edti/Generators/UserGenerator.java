@@ -12,6 +12,8 @@ import com.edti.Wrappers.NeptunTeacherWrapper;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class UserGenerator implements IUserGenerator {
 
@@ -53,6 +55,7 @@ public class UserGenerator implements IUserGenerator {
     public Collection<User> generateUsers() {
         loadExternalParams(ParamLoader.getParams("data.txt"));
         Set<User> creativeUserSet = new HashSet<>();
+        Map<String, User> creativeUserMap = new HashMap<>();
         int i =0;
         while(i != numberOfStudents + numberOfTeachers)
         {
@@ -60,10 +63,25 @@ public class UserGenerator implements IUserGenerator {
             String vN = generateVezNev();
             String nyeptun = generateNeptuneId();
             User currentUser = new User(Integer.toString(new Random().nextInt(10000000)), nyeptun, vN, kN, String.format("%s %s", vN, kN), generateEmail(nyeptun));
-            if (!creativeUserSet.contains(currentUser)) {
-                creativeUserSet.add(currentUser);
+//            User currentUser = new User(Integer.toString(i), nyeptun, vN, kN, String.format("%s %s", vN, kN), generateEmail(nyeptun));
+
+            if (!creativeUserMap.containsKey(currentUser.getUserID())) {
+                creativeUserMap.put(currentUser.getUserID(), currentUser);
+                System.out.println("Added to map with id: " + currentUser.getUserID());
                 i++;
+            } else {
+                System.out.println("Vótmá");
             }
+
+            creativeUserMap.forEach((k, v) -> creativeUserSet.add(v));
+
+//            if (!creativeUserSet.contains(currentUser)) {
+//                creativeUserSet.add(currentUser);
+//                System.out.println("Added with: " + currentUser.getUserID());
+//                i++;
+//            } else {
+//                System.out.println("Vótmá");
+//            }
         }
         return creativeUserSet;
     }

@@ -91,18 +91,19 @@ public class User {
         EmailLastChanged = emailLastChanged;
     }
 
+
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public boolean equals(Object obj) {
+
+        if (obj == this) {
             return true;
         }
 
-        if (!(o instanceof User c)) {
+        if (!(obj instanceof User user)) {
             return false;
         }
 
-
-        return Objects.equals(c.UserID, this.UserID);
+        return this.getUserID().equals(user.getUserID());
 
     }
 
