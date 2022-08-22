@@ -74,14 +74,6 @@ public class UserGenerator implements IUserGenerator {
             }
 
             creativeUserMap.forEach((k, v) -> creativeUserSet.add(v));
-
-//            if (!creativeUserSet.contains(currentUser)) {
-//                creativeUserSet.add(currentUser);
-//                System.out.println("Added with: " + currentUser.getUserID());
-//                i++;
-//            } else {
-//                System.out.println("Vótmá");
-//            }
         }
         return creativeUserSet;
     }
@@ -101,20 +93,20 @@ public class UserGenerator implements IUserGenerator {
 
         String betuk = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-            String neptun ="";
+            StringBuilder neptun = new StringBuilder();
             for (int i = 0; i < 6; i++)
             {
                 if (new Random().nextInt(101)<70)
                 {
-                    neptun += betuk.charAt(new Random().nextInt(betuk.length()));
+                    neptun.append(betuk.charAt(new Random().nextInt(betuk.length())));
                 }
                 else
                 {
-                    neptun += new Random().nextInt(10);
+                    neptun.append(new Random().nextInt(10));
                 }
             }
 
-        return neptun;
+        return neptun.toString();
     }
 
     @Override
