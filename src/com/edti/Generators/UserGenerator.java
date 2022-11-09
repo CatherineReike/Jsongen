@@ -53,7 +53,7 @@ public class UserGenerator implements IUserGenerator {
 
     @Override
     public Collection<User> generateUsers() {
-        loadExternalParams(ParamLoader.getParams("data.txt"));
+        loadExternalParams(ParamLoader.getParams("/Users/vasvince/Documents/Munka/Jsongen/data.txt"));
         Set<User> creativeUserSet = new HashSet<>();
         Map<String, User> creativeUserMap = new HashMap<>();
         int i =0;

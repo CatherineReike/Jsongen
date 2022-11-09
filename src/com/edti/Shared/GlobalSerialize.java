@@ -15,7 +15,7 @@ public class GlobalSerialize<T> implements IGlobalSerialize<T> {
     private Path PATH;
 
     private void getPath(String name){
-        PATH = Paths.get(String.format("Files/%s.json", name));
+        PATH = Paths.get(String.format("/Users/vasvince/Documents/Munka/Jsongen/Files/%s.json", name));
     }
 
 
@@ -25,6 +25,7 @@ public class GlobalSerialize<T> implements IGlobalSerialize<T> {
         setGsonObject();
         String objectString = gson.toJson(object);
 
+        System.out.println(PATH);
         if (!Files.exists(PATH)) {
             Files.createFile(PATH);
         }

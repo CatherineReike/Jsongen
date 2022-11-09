@@ -51,7 +51,7 @@ public class CohortGenerator implements ICohortGenerator {
     @Override
     public Collection<Cohort> generate(HashMap<String, ArrayList<User>> users) {
         collectUserIds(users);
-        setExternalParams(ParamLoader.getParams("data.txt"));
+        setExternalParams(ParamLoader.getParams("/Users/vasvince/Documents/Munka/Jsongen/data.txt"));
         Set<Cohort> cohortSet = new HashSet<>();
         int i = 0;
         Random rnd = new Random();
