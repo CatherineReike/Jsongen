@@ -29,10 +29,10 @@ public class CohortGenerator implements ICohortGenerator {
             "E", "O", "M", "I", "Z", "V", "W", "Z"};
     private final String[] kepzes = {"F", "B", "D", "O", "M", "S", "T", "E"};
     private final String[] munkarend = {"N", "L", "E", "T"};
-    private final String[] targynevek = {"Elektronika", "Pszihologia", "Építészet", "Automatika", "Villamos energetika",
-                "Felhő technológiák", "Szoftver fejlesztés", "Festészet", "Villamos gépek", "Statika", "Nemes Peti alapfokon",
-    "Nemes Peti haladóknak", "Varázslástan alapfokon", "Bájitaltan II.", "Sötét varázslatok kivédése", "Gyógynövénytan",
-            "Átváltoztatástan", "Mágiatörténet IV.", "Legendás állatok és megfigyelésük"};
+    private final String[] targynevek = {"Elektronika", "Pszihológia", "Építészet", "Automatika", "Villamos energetika",
+                "Felhő technológiák", "Szoftver fejlesztés", "Festészet", "Villamos gépek", "Statika", "Példa Kurzus alapfokon",
+    "Példa kurzus haladóknak", "Mechanika alapfokon", "Mechanika II.", "Nemzetközi Kapcsolatok", "Gyógyászat",
+            "Anyagismeret", "Mechanika IV.", "Példa kurzus II."};
 
     private final List<OEKurzusokFelhasznalokkalKurzusHallgatokAdat> students = new ArrayList<>();
     private final List<OEKurzusokFelhasznalokkalKurzusOktatokAdat> teachers = new ArrayList<>();
